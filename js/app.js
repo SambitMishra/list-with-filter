@@ -1,11 +1,11 @@
-var page = 1;
-var limit = 10;
-var eofReached = false;
-var sort = 'asc';
+let page = 1;
+let limit = 10;
+let eofReached = false;
+let sort = 'asc';
 
 window.onload = function () {
-    var listElm = document.querySelector('.list-div');
-    var searchedField = document.querySelector('#searchField');
+    let listElm = document.querySelector('.list-div');
+    let searchedField = document.querySelector('#searchField');
     searchedField.addEventListener('keyup', function (event) {
         if (event.type === 'keyup') {
             eofReached = false;
@@ -24,7 +24,7 @@ window.onload = function () {
 }
 
 function manageSort() {
-    var text;
+    let text;
     const searchedValue = document.getElementById('searchField').value.trim();
 
     if (searchedValue === '') {
@@ -45,7 +45,7 @@ function manageSort() {
     document.getElementById('orderBy').innerHTML = text;
 }
 
-var loadList = debounce(function () {
+let loadList = debounce(function () {
     const searchedValue = document.getElementById('searchField').value.trim();
     let url = 'http://5cdc339c069eb30014202b21.mockapi.io/api/v1/search?page=' +
         page + '&limit=' + limit + '&sortBy=name&order=' + sort;
@@ -91,15 +91,15 @@ var loadList = debounce(function () {
 
 
 function debounce(func, wait, immediate) {
-    var timeout;
+    let timeout;
     return function () {
-        var context = this,
+        let context = this,
             args = arguments;
-        var later = function () {
+        let later = function () {
             timeout = null;
             if (!immediate) func.apply(context, args);
         };
-        var callNow = immediate && !timeout;
+        let callNow = immediate && !timeout;
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
         if (callNow) func.apply(context, args);
