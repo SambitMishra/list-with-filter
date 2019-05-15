@@ -52,6 +52,9 @@ var loadList = debounce(function () {
 
     if (searchedValue !== '') {
         url = url + '&filter=' + searchedValue;
+    } else {
+        alert('Please enter some value to filter');
+        return;
     }
 
     // No call after reaching end of search result
