@@ -34,15 +34,6 @@ function manageSort() {
     page = 1;
     document.getElementById('listArea').innerHTML = '';
     loadList();
-
-    if (sort === 'asc') {
-        text = 'Descending';
-        sort = 'desc';
-    } else {
-        text = 'Ascending';
-        sort = 'asc';
-    }
-    document.getElementById('orderBy').innerHTML = text;
 }
 
 let loadList = debounce(function () {
@@ -82,6 +73,8 @@ let loadList = debounce(function () {
                 if (listLength % limit !== 0 && !eofReached) {
                     eofReached = true;
                 }
+
+                manageSortingOption();
             }
         }
     };
@@ -89,6 +82,16 @@ let loadList = debounce(function () {
     xhttp.send();
 }, 250);
 
+function manageSortingOption() {
+    if (sort === 'asc') {
+        text = 'Descending';
+        sort = 'desc';
+    } else {
+        text = 'Ascending';
+        sort = 'asc';
+    }
+    document.getElementById('orderBy').innerHTML = text;
+}
 
 function debounce(func, wait, immediate) {
     let timeout;
