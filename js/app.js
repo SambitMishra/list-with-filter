@@ -31,7 +31,7 @@ FilterComponent.prototype.createComponent = function () {
         </div>
 
         <div class="content-div">
-            Order By: <div class="order-by">Descending</div>
+            Order By: <button class="order-by" tabindex="0">Descending</button>
         </div>
 
         <div class="content-div list-div" tabindex="0">
@@ -139,7 +139,7 @@ FilterComponent.prototype.loadList = function () {
                 // const listArea = document.getElementById('listArea');
                 let listContent = '';
                 originalList.forEach(function (rec) {
-                    listContent += '<li>' + rec['name'] + '</li>';
+                    listContent += '<li tabindex=0>' + rec['name'] + '</li>';
                 }, this);
 
                 if (originalList.length === 0) {
