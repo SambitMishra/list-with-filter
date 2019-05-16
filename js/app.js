@@ -18,6 +18,23 @@ function FilterComponent(parentEl, limit) {
     this.createComponent();
 }
 
+const debounce = function (func, wait, immediate) {
+    let timeout;
+    return function () {
+        const context = this;
+        let callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        const args = arguments;
+        timeout = setTimeout(function () {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        }, wait)
+
+        //timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+    };
+};
+
 FilterComponent.prototype.createComponent = function () {
     const me = this;
     // TODO: Check for custom parent
@@ -51,7 +68,7 @@ FilterComponent.prototype.createComponent = function () {
             me.page = 1;
         }
         me.listArea.innerHTML = '';
-        me.debounce(me.loadList, 250, false)();
+        me.loadList();
     });
 
     me.orderBy.addEventListener('click', function (event) {
@@ -65,25 +82,6 @@ FilterComponent.prototype.createComponent = function () {
         }
     });
 }
-
-FilterComponent.prototype.debounce = function (func, wait, immediate) {
-    let timeout;
-    const args = Array.prototype.slice.call(arguments, 3);
-    const me = this;
-    return function () {
-        const context = this;
-        let callNow = immediate && !timeout;
-        clearTimeout(timeout);
-        //const args = arguments;
-        timeout = setTimeout(function () {
-            timeout = null;
-            if (!immediate) func.apply(me, args);
-        }, wait)
-
-        //timeout = setTimeout(later, wait);
-        if (callNow) func.apply(context, args);
-    };
-};
 
 FilterComponent.prototype.manageSortingOption = function () {
     const me = this;
@@ -113,7 +111,7 @@ FilterComponent.prototype.manageSort = function () {
     me.loadList();
 }
 
-FilterComponent.prototype.loadList = function () {
+FilterComponent.prototype.loadList = debounce(function () {
     const me = this;
     const searchedValue = me.searchedField.value.trim();
     let url = 'http://5cdc339c069eb30014202b21.mockapi.io/api/v1/search?page=' +
@@ -158,7 +156,7 @@ FilterComponent.prototype.loadList = function () {
     };
     xhttp.open('GET', url, true);
     xhttp.send();
-};
+}, 250);
 
 
 window.onload = function () {
