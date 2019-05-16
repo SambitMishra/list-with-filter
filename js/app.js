@@ -13,6 +13,7 @@ function FilterComponent(parentEl, limit) {
     this.listArea;
     this.searchedField;
     this.orderBy;
+    this.loader;
 
     console.log('Params: ', this.parent, this.limit)
     this.createComponent();
@@ -55,12 +56,16 @@ FilterComponent.prototype.createComponent = function () {
             <ul class="card list-area">
 
             </ul>
+            <div class="content-div loader" style="display: none;">
+                <img class="loader-text" src="assets/spinner.gif" alt="Loading..."/>
+            </div>
         </div>`;
 
     me.listDiv = topEl.querySelector('.list-div');
     me.listArea = topEl.querySelector('.list-area');
     me.searchedField = topEl.querySelector('.search-field');
     me.orderBy = topEl.querySelector('.order-by');
+    me.loader = topEl.querySelector('.loader');
 
     me.searchedField.addEventListener('keyup', function (event) {
         if (event.type === 'keyup') {
@@ -132,6 +137,7 @@ FilterComponent.prototype.loadList = debounce(function () {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
+            me.loader.style.display = 'none';
             if (this.responseText) {
                 const originalList = JSON.parse(this.responseText);
                 // const listArea = document.getElementById('listArea');
@@ -156,6 +162,7 @@ FilterComponent.prototype.loadList = debounce(function () {
     };
     xhttp.open('GET', url, true);
     xhttp.send();
+    me.loader.style.display = '';
 }, 250);
 
 
