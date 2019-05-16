@@ -1,14 +1,14 @@
-.content-div {
+.filter-component .content-div {
   display: flex;
   justify-content: center;
   margin-top: 10px;
 }
 
-ul {
+.filter-component ul {
   padding: 0;
 }
 
-.list-div {
+.filter-component .list-div {
   height: 415px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   overflow-y: auto;
@@ -16,7 +16,13 @@ ul {
   margin: 20px 300px;
 }
 
-#searchField {
+.filter-component .order-by {
+  color: #069;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.filter-component .search-field {
   width: 200px;
   box-sizing: border-box;
   border: 2px solid #ccc;
@@ -29,11 +35,11 @@ ul {
   padding: 12px 20px 12px 40px;
 }
 
-li {
+.filter-component li {
   list-style: none;
 }
 
-ul.card>li {
+.filter-component ul.card>li {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   background: #F1F1F1;
   width: 200px;
